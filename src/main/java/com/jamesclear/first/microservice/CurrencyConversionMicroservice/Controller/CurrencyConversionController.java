@@ -39,6 +39,7 @@ public class CurrencyConversionController {
 		CurrencyConversionBean bean  = responseConversion.getBody();
 		bean.setTotalCalculatedAmount(bean.getConversionMultiple() * Double.valueOf(quanlity));
 		bean.setQuantity(Integer.valueOf(quanlity));
+		bean.setEnvironment(bean.getEnvironment()+ "  REST TEMPLATE");
 		return responseConversion;
 	}
 	
@@ -55,6 +56,7 @@ public class CurrencyConversionController {
 		CurrencyConversionBean bean  = responseConversion.getBody();
 		bean.setTotalCalculatedAmount(bean.getConversionMultiple() * Double.valueOf(quanlity));
 		bean.setQuantity(Integer.valueOf(quanlity));
+		bean.setEnvironment(bean.getEnvironment()+ "  FEIGN");
 		return responseConversion;
 	}
 	
