@@ -26,6 +26,9 @@ public class CurrencyConversionController {
 			,@PathVariable("to") String to
 			,@PathVariable("quanlity") String quanlity) {
 		
+		System.out.println("restTemplate " + "/currency-conversion/from/{from}/to/{to}/quanlity/{quanlity}");
+		
+		
 		RestTemplate restTemplate  = new RestTemplate();
 		
 		String url = "http://localhost:8000/currency-exchange/from/{from}/to/{to}";
@@ -47,6 +50,9 @@ public class CurrencyConversionController {
 	public ResponseEntity<CurrencyConversionBean> currencyConverse(@PathVariable("from") String from
 			,@PathVariable("to") String to
 			,@PathVariable("quanlity") String quanlity) {
+		
+		System.out.println("FEIGN " + "/currency-conversion/from/{from}/to/{to}/quanlity/{quanlity}");
+		
 		
 		ResponseEntity<CurrencyConversionBean> responseConversion =  null;
 		// We don't have to repeate url localhost:8000 all over the place

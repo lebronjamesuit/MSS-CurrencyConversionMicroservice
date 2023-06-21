@@ -1,13 +1,55 @@
-
-Conversion
-http://localhost:8100/currency-conversion/from/USD/to/INR/quantity/10
-
-Exchange
-http://localhost:8000/currency-exchange/from/USD/to/INR
-
-Eureka
-http://localhost:8761/
+Severs: 
+http://localhost:8761/ Naming
+http://localhost:8765/ Gateway
+http://localhost:8000 8001 Exchange
+http://localhost:8100 Conversion
 
 
-Start server apps following: 1) Naming server  2) Exchange  3) Conversion 
+
+Start server apps following: 
+1) Naming server  8761 -  
+2) Exchange  
+3) Conversion 
+4) API GateWay
 because Naming server need to be up that allows other to join.
+
+
+Conversion-service
+	REST template http://localhost:8100/currency-conversion/from/USD/to/GBP/quantity/10
+	Feign 		  	
+
+Exchange-service
+	http://localhost:8000/currency-exchange/from/USD/to/GBP
+	http://localhost:8001/currency-exchange/from/USD/to/GBP
+
+Eureka service , this is Spring Cloud Netflix Eureka server 
+	http://localhost:8761/
+
+
+API gateway: this is Eureka client
+
+ I want API Gateway to use Service Discovery to find currency-exchange app.
+	http://localhost:8765/
+	http://localhost:8765/{application-Name-Microservice}/{REST-API-URL}
+	
+	E.G 
+	http://localhost:8765/CURRENCY-EXCHANGE-SERVICE/currency-exchange/from/USD/to/GBP
+	http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/GBP  
+	 
+I want API gateway to user Service Discovery to find currency-conversion app
+
+	
+	http://localhost:8765/CURRENCY-CONVERSION-SERVICE/currency-conversion/from/USD/to/VND/quanlity/5
+	http://localhost:8765/currency-conversion-service/currency-conversion/from/USD/to/VND/quanlity/5
+
+Next, I want to customised the routes
+
+   From: http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/GBP
+   To  : http://localhost:8765/currency-exchange/from/USD/to/GBP   
+         don't mention the service name and ask Eureka to find by gatewayRouter()
+   
+   From: http://localhost:8765/currency-conversion-service/currency-conversion/from/USD/to/VND/quanlity/5
+   To  : http://localhost:8765/currency-conversion/from/USD/to/VND/quanlity/5   
+         
+         
+	
