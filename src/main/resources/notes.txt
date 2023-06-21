@@ -1,28 +1,30 @@
-Severs: 
-http://localhost:8761/ Naming
+Severs information 
+http://localhost:8761/ Naming  -- Load balancing Eureka
 http://localhost:8765/ Gateway
 http://localhost:8000 8001 Exchange
 http://localhost:8100 Conversion
 
 
-
-Start server apps following: 
+Start server up orders following: 
 1) Naming server  8761 -  
-2) Exchange  
-3) Conversion 
-4) API GateWay
+2) Exchange  8000, 8001
+3) Conversion 8100
+4) API GateWay 8765
 because Naming server need to be up that allows other to join.
 
 
-Conversion-service
-	REST template http://localhost:8100/currency-conversion/from/USD/to/GBP/quantity/10
-	Feign 		  	
+#Conversion-service
+REST template 
+http://localhost:8100/currency-conversion/from/USD/to/GBP/quanlity/10
 
-Exchange-service
+Feign 
+http://localhost:8100/feign/currency-conversion/from/USD/to/GBP/quanlity/111 
+
+#Exchange-service
 	http://localhost:8000/currency-exchange/from/USD/to/GBP
 	http://localhost:8001/currency-exchange/from/USD/to/GBP
 
-Eureka service , this is Spring Cloud Netflix Eureka server 
+#Eureka service , this is Spring Cloud Netflix Eureka server 
 	http://localhost:8761/
 
 
@@ -34,22 +36,25 @@ API gateway: this is Eureka client
 	
 	E.G 
 	http://localhost:8765/CURRENCY-EXCHANGE-SERVICE/currency-exchange/from/USD/to/GBP
+	after replace upper-case, we can type lower case
+	
 	http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/GBP  
 	 
 I want API gateway to user Service Discovery to find currency-conversion app
 
-	
 	http://localhost:8765/CURRENCY-CONVERSION-SERVICE/currency-conversion/from/USD/to/VND/quanlity/5
 	http://localhost:8765/currency-conversion-service/currency-conversion/from/USD/to/VND/quanlity/5
 
-Next, I want to customised the routes
+Next, I want to customised the routes, remove the word "service"
 
    From: http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/GBP
    To  : http://localhost:8765/currency-exchange/from/USD/to/GBP   
          don't mention the service name and ask Eureka to find by gatewayRouter()
    
    From: http://localhost:8765/currency-conversion-service/currency-conversion/from/USD/to/VND/quanlity/5
-   To  : http://localhost:8765/currency-conversion/from/USD/to/VND/quanlity/5   
+   To  : http://localhost:8765/currency-conversion/from/USD/to/VND/quanlity/5 
+
+   Feign: http://localhost:8765/feign/currency-conversion/from/USD/to/VND/quanlity/5   		   
          
          
 	

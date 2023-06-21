@@ -2,6 +2,8 @@ package com.jamesclear.first.microservice.CurrencyConversionMicroservice.Control
 
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+
 @RestController
 public class CurrencyConversionController {
-
+	
+	private Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
+	
 	@Autowired
 	private CurrencyConversionProxy currencyFeignProxy;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	
     /* Note
@@ -27,10 +35,9 @@ public class CurrencyConversionController {
 			,@PathVariable("quanlity") String quanlity) {
 		
 		System.out.println("restTemplate " + "/currency-conversion/from/{from}/to/{to}/quanlity/{quanlity}");
+		logger.info(" Log at CurrencyConversionController method getCurrent rest template ", this);
 		
-		
-		RestTemplate restTemplate  = new RestTemplate();
-		
+	
 		String url = "http://localhost:8000/currency-exchange/from/{from}/to/{to}";
 		
 		HashMap<String, String> variables = new HashMap<String, String>();
@@ -52,8 +59,8 @@ public class CurrencyConversionController {
 			,@PathVariable("quanlity") String quanlity) {
 		
 		System.out.println("FEIGN " + "/currency-conversion/from/{from}/to/{to}/quanlity/{quanlity}");
-		
-		
+		logger.info(" Log at FEIGN , CurrencyConversionController.class method  currencyConverse rest template ", this);
+	
 		ResponseEntity<CurrencyConversionBean> responseConversion =  null;
 		// We don't have to repeate url localhost:8000 all over the place
 		responseConversion = currencyFeignProxy.callCurrencyExchangeService(from, to);
