@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Flux;
 
 
 @RestController
@@ -72,6 +73,10 @@ public class CurrencyConversionController {
 		bean.setEnvironment(bean.getEnvironment()+ "  FEIGN");
 		return responseConversion;
 	}
-	
+
+
+
+
+
 }
 

@@ -18,7 +18,11 @@ REST template
 http://localhost:8100/currency-conversion/from/USD/to/GBP/quanlity/10
 
 Feign 
-http://localhost:8100/feign/currency-conversion/from/USD/to/GBP/quanlity/111 
+http://localhost:8100/feign/currency-conversion/from/USD/to/GBP/quanlity/111
+
+Spring Flux Web Client
+Feign
+http://localhost:8100/flux/currency-conversion/from/USD/to/GBP/quanlity/111
 
 #Exchange-service
 	http://localhost:8000/currency-exchange/from/USD/to/GBP
